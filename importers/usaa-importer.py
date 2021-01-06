@@ -15,7 +15,7 @@ import csv
 import os
 import re
 
-class AmexImporter(importer.ImporterProtocol):
+class USAAImporter(importer.ImporterProtocol):
 
 	def __init__(self, currency,
 					account_root,
@@ -33,18 +33,8 @@ class AmexImporter(importer.ImporterProtocol):
 		self.account_external = account_external
 
 	def identify(self, f):
-		if not re.match('Transactions.*\.csv', os.path.basename(f.name)):
-			return False
-
-		'''if 'skymiles' in f.name.lower():
-			self.account = 'Liabilities:CC:Amex:SkyMiles-Platinum'
-		if 'reserve' in f.name.lower():
-			self.account = 'Liabilities:CC:Amex:SkyMiles-Reserve'
-		else:
-			RunTimeError('Please include SkyMiles or Reserve in the filename')
-		'''
-
-		return True
+		return (re.match("stuffandthings.csv", path.basename(f.name)) and
+				re.match("DATE,TYPE,REF", f.head()))
 
 	def extractor(self, f):
 		entries = []
