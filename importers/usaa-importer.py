@@ -17,13 +17,7 @@ import re
 
 class USAAImporter(importer.ImporterProtocol):
 
-	def __init__(self, currency,
-					account_root,
-					account_cash,
-					account_dividends,
-					account_gains,
-					account_fees,
-					account_external):
+	def __init__(self, currency, account_root, account_cash, account_dividends, account_gains, account_fees, account_external):
 		self.currency = currency
 		self.account_root = account_root
 		self.account_cash = account_cash
@@ -36,19 +30,33 @@ class USAAImporter(importer.ImporterProtocol):
 		return (re.match("stuffandthings.csv", path.basename(f.name)) and
 				re.match("DATE,TYPE,REF", f.head()))
 
-	def extractor(self, f):
+	def file_account(self, f):
+		return "things"
+
+	def file_date(self, f):
+		return "things"
+
+	def file_name(self, f):
+		return "things"
+
+	def extract(self, f):
 		entries = []
 
 		with open(f.name) as f:
 			for index, row in enumerate(csv.reader(f)):
-				trans_date = parse(row[0].split(' ')[0]).date()
-				trans_descr = titlecase(row[2])
-				trans_amt = row[7]
+				trans_date = parse(row[2].split('/')[0]).date()
+				trans_descr = titlecase(row[4])
+				trans_amt = row[6]
 
-				if trans_desc == 'Online Payment - Thank You':
+				if 'AMEX EPAYMENT' in trans_desc:
 					continue
-
-				if trans_desc == 'Payment Received - Thank You':
+				if 'USAA FUNDS TRANSFER' in trans_desc:
+					continue
+				if 'ALLY BANK' in trans_desc:
+					continue
+				if 'USAA CREDIT CARD PAYMENT' in trans_desc:
+					continue
+				if 'AMZ_STORECRD_PMT' in trans_desc:
 					continue
 
 				meta = data.new_metadata(f.name, index)
@@ -67,7 +75,7 @@ class USAAImporter(importer.ImporterProtocol):
 				txn.postings.append(
 					data.Posting(
 						self.account,
-						amount.Amount(-1*D(trans_amt), 'USD'),
+						amount.Amount(-1*D(trans_amt), self.currency),
 						None, None, None, None
 					)
 				)
