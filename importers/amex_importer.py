@@ -1,9 +1,9 @@
-from beancount.core.numer import D
+from beancount.core.number import D
 from beancount.ingest import importer
 from beancount.core import account
 from beancount.core import amount
 from beancount.core import flags
-from beancout.core import data
+from beancount.core import data
 from beancount.core.position import Cost
 
 from dateutil.parser import parse
