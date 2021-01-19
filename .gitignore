@@ -1,2 +1,3 @@
 ledger/
 ingest_files/
+__pycache__/
