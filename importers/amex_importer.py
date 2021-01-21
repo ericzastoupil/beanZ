@@ -60,9 +60,11 @@ class AmexImporter(importer.ImporterProtocol):
 
 		with open(f.name) as f:
 			for index, row in enumerate(csv.reader(f)):
+				#index is row number
+				#row is a list of values in that row
 				trans_date = parse(row[0].split(' ')[0]).date()
-				trans_descr = titlecase(row[2])
-				trans_amt = row[7]
+				trans_descr = titlecase(row[1])
+				trans_amt = row[4]
 
 				if trans_desc == 'AUTOPAY PAYMENT - THANK YOU':
 					continue
