@@ -32,21 +32,30 @@ class AmexImporter(importer.ImporterProtocol):
 		self.account_fees = account_fees
 		self.account_external = account_external
 
-	def identify(self, f):
-		if not re.match('Transactions.*\.csv', os.path.basename(f.name)):
-			return False
-
-		'''if 'skymiles' in f.name.lower():
-			self.account = 'Liabilities:CC:Amex:SkyMiles-Platinum'
-		if 'reserve' in f.name.lower():
-			self.account = 'Liabilities:CC:Amex:SkyMiles-Reserve'
-		else:
-			RunTimeError('Please include SkyMiles or Reserve in the filename')
+	def name(self):
+		'''This method provides a unique ID for each importer instance. It's convenient to
+		be able to refer to your importers by a unique name; it gets printed out by the
+		identification process, for instance
 		'''
+		return "AMEX Credit Card Importer"
+
+	def identify(self, f):
+		'''This method just returns TRUE if this importer can handle the given file. This
+		method must be implemented, amnd all the tools invoke it to figure out the list of
+		(file, importer) pairs.
+		'''
+
+		if not re.match('AMEX.*\.csv', os.path.basename(f.name)):
+			return False
 
 		return True
 
-	def extractor(self, f):
+	def extract(self, f):
+		'''This is called to attempt to extract some Beancount directives from the file 
+		contents. It must create the directives by instantiating the objects defined in
+		beancount.core.data and return them.
+		'''
+
 		entries = []
 
 		with open(f.name) as f:
@@ -55,10 +64,7 @@ class AmexImporter(importer.ImporterProtocol):
 				trans_descr = titlecase(row[2])
 				trans_amt = row[7]
 
-				if trans_desc == 'Online Payment - Thank You':
-					continue
-
-				if trans_desc == 'Payment Received - Thank You':
+				if trans_desc == 'AUTOPAY PAYMENT - THANK YOU':
 					continue
 
 				meta = data.new_metadata(f.name, index)
