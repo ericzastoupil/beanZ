@@ -48,6 +48,8 @@ class AmexImporter(importer.ImporterProtocol):
 		if not re.match('AMEX.*\.csv', os.path.basename(f.name)):
 			return False
 
+		print("Running "+self.name()+" on "+os.path.basename)
+
 		return True
 
 	def extract(self, f):
@@ -93,3 +95,30 @@ class AmexImporter(importer.ImporterProtocol):
 				entries.append(txn)
 
 		return entries
+
+	def file_account(self):
+		'''This method returns the root account associated with this importer. 
+		This is where the downloaded file will be moved by the filing script.
+		'''
+		
+		return False
+
+	def find_date(self):
+		'''If a date cane be extracted from the statement's contents, return
+		it here. This is useful for dated PDF statements... it's often possible
+		using regular expresions to grep out the date from a PDF converted to
+		text. This allows the filing script to prepend a relevant date instead
+		of using the date when the file was downloaded (the default).
+		'''
+
+		return False
+		
+	def file_name(self):
+		'''It's most convenient not to bother renaming downloaded files. Oftentimes,
+		the files generated from your bank either all have a unique name and they
+		end up getting renamed by your browser when you download multiple ones and
+		the names collide. This function is used for the importer to provide a "nice"
+		name to file the document under.
+		'''
+
+		return False
