@@ -96,14 +96,14 @@ class AmexImporter(importer.ImporterProtocol):
 
 		return entries
 
-	def file_account(self):
+	def file_account(self, f):
 		'''This method returns the root account associated with this importer. 
 		This is where the downloaded file will be moved by the filing script.
 		'''
 		
 		return False
 
-	def find_date(self):
+	def file_date(self, f):
 		'''If a date cane be extracted from the statement's contents, return
 		it here. This is useful for dated PDF statements... it's often possible
 		using regular expresions to grep out the date from a PDF converted to
@@ -111,9 +111,9 @@ class AmexImporter(importer.ImporterProtocol):
 		of using the date when the file was downloaded (the default).
 		'''
 
-		return False
+		return None
 		
-	def file_name(self):
+	def file_name(self, f):
 		'''It's most convenient not to bother renaming downloaded files. Oftentimes,
 		the files generated from your bank either all have a unique name and they
 		end up getting renamed by your browser when you download multiple ones and
