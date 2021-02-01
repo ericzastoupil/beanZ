@@ -17,27 +17,24 @@ import re
 
 class USAAImporter(importer.ImporterProtocol):
 
-	def __init__(self, currency, account_root, account_cash, account_dividends, account_gains, account_fees, account_external):
+	def __init__(self, currency, account_root):
 		self.currency = currency
 		self.account_root = account_root
-		self.account_cash = account_cash
-		self.account_dividends = account_dividends
-		self.account_gains = account_gains
-		self.account_fees = account_fees
-		self.account_external = account_external
+
+	def name(self):
+		return "USAA Checking Importer"
 
 	def identify(self, f):
-		return (re.match("stuffandthings.csv", path.basename(f.name)) and
-				re.match("DATE,TYPE,REF", f.head()))
+		return re.match("USAA.*/.csv", path.basename(f.name))
 
 	def file_account(self, f):
-		return "things"
+		return self.account_root
 
 	def file_date(self, f):
 		return "things"
 
 	def file_name(self, f):
-		return "things"
+		return path.basename(f.name)
 
 	def extract(self, f):
 		entries = []

@@ -7,6 +7,6 @@ sys.path.append(os.path.dirname(__file__))
 from importers import amex, usaa
 
 CONFIG = [
-	amex.AmexImporter(),
-	usaa.USAAImporter()
+	amex.AmexImporter('USD', 'Liabilities:AMEX:'),
+	usaa.USAAImporter('USD', 'Assets:USAA:TeamZChecking:')
 ]
