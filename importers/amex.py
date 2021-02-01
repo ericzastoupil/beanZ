@@ -17,20 +17,9 @@ import re
 
 class AmexImporter(importer.ImporterProtocol):
 
-	def __init__(self, currency,
-					account_root,
-					account_cash,
-					account_dividends,
-					account_gains,
-					account_fees,
-					account_external):
+	def __init__(self, currency, account_root):
 		self.currency = currency
 		self.account_root = account_root
-		self.account_cash = account_cash
-		self.account_dividends = account_dividends
-		self.account_gains = account_gains
-		self.account_fees = account_fees
-		self.account_external = account_external
 
 	def name(self):
 		'''This method provides a unique ID for each importer instance. It's convenient to
