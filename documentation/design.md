@@ -4,9 +4,8 @@
 This application is intended to enable and inform a user's financial decision-making by providing a comprehensive financial snapshot and analysis of a their financial health and habits. It might also just be an excuse for me to practice by building something.
 
 ## Features
-- [ ] Task 1 
-- [ ]  Registration
-    - [ ]User profiles- username, pic, email
+- [ ]  User Registration
+    - [ ] User profiles- username, pic, email
 - [ ] Log-in
     - [ ] Secure authentication
 - [ ] Splash screen
@@ -18,7 +17,7 @@ This application is intended to enable and inform a user's financial decision-ma
 - [ ] Ingest financial documents and translate them into database records.
     - [ ] Pay stubs
     - [ ] Bank transactions
-    - [ ]Investment transactions
+    - [ ] Investment transactions
 - [ ] Current monthly spending by category
 - [ ] Account and Networth progression over time
 - [ ] Drag and drop transaction documents for ingest
