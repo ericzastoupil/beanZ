@@ -1,3 +1,4 @@
 ledger/
 ingest_files/
 __pycache__/
+*.drawio
