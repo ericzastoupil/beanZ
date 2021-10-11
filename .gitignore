@@ -4,3 +4,4 @@ __pycache__/
 *.drawio
 notes.md
 beanZ_env
+.flaskenv
