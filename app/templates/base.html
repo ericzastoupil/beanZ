@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+    <head>
+        {% if title %}
+        <title>{{ title }} - beanZ</title>
+        {% else %}
+        <title>Welcome to beanZ</title>
+        {% endif %} 
+    </head>
+    <body>
+        <!-- Navigation bar -->
+        <div>beanZ: <a href="/index">Home</a></div>
+        <hr>
+        <!-- Main body -->
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>
