@@ -4,7 +4,7 @@
 This application is intended to enable and inform a user's financial decision-making by providing a comprehensive financial snapshot and analysis of a their financial health and habits. It might also just be an excuse for me to practice by building something.
 
 ## Features
-- [ ]  User Registration
+- [ ] User Registration
     - [ ] User profiles- username, pic, email
 - [ ] Log-in
     - [ ] Secure authentication
@@ -30,15 +30,17 @@ This application is intended to enable and inform a user's financial decision-ma
     - By category
     - Compared to previous spending averages
 
-## Technologies Used
+## Incoroporated Technologies
 | Tech | Description of Use |
 | ----------- | ----------- |
 | Flask | Framework Stuff and things |
 | Python | More stuff and things |
 | SQLite | Db stuff and things |
+| Apache | Web stuff |
 | Docker | Container stuffs |
 
 ## Long term goals
 - Host in the cloud to be accessible through www
+- Built in budgeting
 - Connect through financial aggregator (Plaid) to automate ingest
 - Apply predictive tagging recommendations
