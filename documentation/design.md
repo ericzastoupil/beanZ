@@ -33,11 +33,16 @@ This application is intended to enable and inform a user's financial decision-ma
 ## Incoroporated Technologies
 | Tech | Description of Use |
 | ----------- | ----------- |
-| Flask | Framework Stuff and things |
+| Flask  | Framework Stuff and things |
 | Python | More stuff and things |
 | SQLite | Db stuff and things |
 | Apache | Web stuff |
 | Docker | Container stuffs |
+
+## Branch Strategy
+- Main- Always maintains a production-ready state
+- Develop- Delivery of most recently developed features, preparing for next release. When stable and ready for release, merges back into Main.
+- Feature- Branches off of, and merges back into, develop branch.
 
 ## Long term goals
 - Host in the cloud to be accessible through www
