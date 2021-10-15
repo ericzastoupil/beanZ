@@ -1,6 +1,7 @@
 from app import db
 from datetime import datetime
 
+#User table definition
 class User(db.Model):
     __tablename__ = 'user'
     user_id = db.Column(db.Integer, primary_key=True)
