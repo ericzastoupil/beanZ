@@ -1,0 +1,2 @@
+FLASK_APP=beanZ.py
+SECRET_KEY='stuff and things'
