@@ -72,3 +72,6 @@ class Merchant(db.Model):
     __tablename__ = 'merchant'
     merchant_id = db.Column(db.Integer, primary_key=True)
     merchant_name = db.Column(db.String(120))
+
+    def __repr__(self):
+        return f"Metchant {self.merchant_name}"
