@@ -74,4 +74,4 @@ class Merchant(db.Model):
     merchant_name = db.Column(db.String(120))
 
     def __repr__(self):
-        return f"Metchant {self.merchant_name}"
+        return f"Merchant {self.merchant_name}"
