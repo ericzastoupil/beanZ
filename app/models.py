@@ -11,7 +11,7 @@ class User(db.Model):
     transactions = db.relationship('Transaction', backref='user', lazy='dynamic')
 
     def __repr__(self):
-        return "<User {}".format(self.username)
+        return f"<User {self.username}- email: {self.email}"
 
 #Transaction table definition
 class Transaction(db.Model):
@@ -25,17 +25,18 @@ class Transaction(db.Model):
     desc = db.Column(db.String(120))
 
     def __repr__(self):
-        return "<Transaction {}>".format(self.date_transaction, self.desc)
+        return f"<Transaction {self.date_transaction}- {self.desc}>"
         
 #Account table definition
 class Account(db.Model):
     __tablename__ = 'account'
     account_id = db.Column(db.Integer, primary_key=True)
+    account_name = db.Column(db.String(120))
     institution_id = db.Column(db.Integer, db.ForeignKey('institution.institution_id'))
     type_id = db.Column(db.Integer, db.ForeignKey('account_type.acount_type_id'))
 
     def __repr__(self):
-        return "<Transaction {}".format(self.date_transaction, self.desc)
+        return f"Account {self.account_name}"
 
 #Institution table definition
 class Instutition(db.Model):
@@ -43,11 +44,17 @@ class Instutition(db.Model):
     institution_id = db.Column(db.integer, primary_key=True)
     institution_name = db.Column(db.String(64), index=True)
 
+    def __repr__(self):
+        return f"Institution {self.institution_name}"
+
 #AccountType table definition
 class AccountType(db.Model):
     __tablename__ = 'account_type'
     account_type_id = db.Column(db.integer, primary_key=True)
     account_type = db.Column(db.String(64), index=True)
+
+    def __repr__(self):
+        return f"AccountType {self.account_type}"
 
 #TransactionTag table definition
 class TransactionTag(db.Model):
@@ -57,7 +64,11 @@ class TransactionTag(db.Model):
     tag_main_type_id = db.Column(db.Integer, db.ForeignKey('tag_main_type.tag_main_type.id'))
     tag = db.Column(db.String(64))
 
+    def __repr__(self):
+        return f"TransactionTag {self.tag}"
+
 #Merchant table definition
 class Merchant(db.Model):
     __tablename__ = 'merchant'
-    merchant_id = db.Column(db.String(64), primary_key=True)
+    merchant_id = db.Column(db.Integer, primary_key=True)
+    merchant_name = db.Column(db.String(120))
