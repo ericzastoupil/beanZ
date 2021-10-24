@@ -1,5 +1,6 @@
 # Design Documentation for beanZ
 
+
 ## Purpose
 This application is intended to enable and inform a user's financial decision-making by providing a comprehensive financial snapshot and analysis of a their financial health and habits. It might also just be an excuse for me to practice by building something.
 
