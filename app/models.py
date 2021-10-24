@@ -41,7 +41,7 @@ class Account(db.Model):
 #Institution table definition
 class Instutition(db.Model):
     __tablename__ = 'institution'
-    institution_id = db.Column(db.integer, primary_key=True)
+    institution_id = db.Column(db.Integer, primary_key=True)
     institution_name = db.Column(db.String(64), index=True)
 
     def __repr__(self):
@@ -50,7 +50,7 @@ class Instutition(db.Model):
 #AccountType table definition
 class AccountType(db.Model):
     __tablename__ = 'account_type'
-    account_type_id = db.Column(db.integer, primary_key=True)
+    account_type_id = db.Column(db.Integer, primary_key=True)
     account_type = db.Column(db.String(64), index=True)
 
     def __repr__(self):
