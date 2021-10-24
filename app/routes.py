@@ -34,11 +34,13 @@ def login():
         return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
 
+#Logs the user out and redirects back to index
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
+#Register a new user
 @app.route('/register', methods=['GET','POST'])
 def register():
     if current_user.is_authenticated:
@@ -52,3 +54,11 @@ def register():
         flash('You are now registered')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
+#User profile page
+@app.route('/user/<username>')
+@login_required
+def user(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    #can pass additional things into render_templater here
+    return render_template('user.html', user=user)
