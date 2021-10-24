@@ -5,3 +5,4 @@ __pycache__/
 notes.md
 beanZ_env
 .flaskenv
+app.db
