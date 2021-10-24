@@ -44,6 +44,7 @@ class Account(db.Model):
     account_name = db.Column(db.String(120))
     institution_id = db.Column(db.Integer, db.ForeignKey('institution.institution_id'))
     type_id = db.Column(db.Integer, db.ForeignKey('account_type.acount_type_id'))
+    transactions = db.relationship('Transaction', backref='account', lazy='dynamic') #one account can have many transactions.
 
     def __repr__(self):
         return f"Account {self.account_name}"
