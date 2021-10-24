@@ -2,12 +2,13 @@ from flask import Flask
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_login import LoginManager, login_manager
+from flask_login import LoginManager
 
 app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-login = login_manager(app)
+login = LoginManager(app)
+login.login_view = 'login' #setting the url for @login_required
 
 from app import routes, models
