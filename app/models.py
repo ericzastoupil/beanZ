@@ -43,7 +43,7 @@ class Account(db.Model):
     account_id = db.Column(db.Integer, primary_key=True)
     account_name = db.Column(db.String(120))
     institution_id = db.Column(db.Integer, db.ForeignKey('institution.institution_id'))
-    type_id = db.Column(db.Integer, db.ForeignKey('account_type.acount_type_id'))
+    type_id = db.Column(db.Integer, db.ForeignKey('account_type.account_type_id'))
     transactions = db.relationship('Transaction', backref='account', lazy='dynamic') #one account can have many transactions.
 
     def __repr__(self):
@@ -72,7 +72,7 @@ class TransactionTag(db.Model):
     __tablename__ = 'transaction_tag'
     tag_id = db.Column(db.Integer, primary_key=True)
     transaction_id = db.Column(db.Integer, db.ForeignKey('transaction.transaction_id'))
-    tag_main_type_id = db.Column(db.Integer, db.ForeignKey('tag_main_type.tag_main_type.id'))
+    #tag_main_type_id = db.Column(db.Integer, db.ForeignKey('tag_main_type.tag_main_type.id'))
     tag = db.Column(db.String(64))
 
     def __repr__(self):
