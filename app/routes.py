@@ -8,11 +8,15 @@ from werkzeug.urls import url_parse
 
 #Main Page
 @app.route('/')
+def splash():
+    #user = {'username': 'Eric'}
+    return render_template('splash.html', title='Welcome to beanZ')
+
 @app.route('/index')
 @login_required #when a user that is not logged in attempts access, will be redirected to login page.
 def index():
     user = {'username': 'Eric'}
-    return render_template('index.html', title='Home')
+    return render_template('index.html', title='beanZ Home')
 
 #Login Page
 @app.route('/login', methods=['GET', 'POST']) #POSTs are for browser submitting form data to the server
