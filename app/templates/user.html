@@ -4,8 +4,8 @@
     <h1>User: {{ user.username }}!</h1>
     <hr>    
     <!-- No use. Just leaving as an example of loop.-->
-    {% for post in posts %}
-    <div><p>{{ post.author.username }} says: <b>{{ post.body }}</b></p></div>
+    {% for transaction in transactions %}
+    <div><p>{{ transaction.owner.username }} says: <b>{{ transaction.body }}</b></p></div>
     {% endfor %}
     
 {% endblock %}

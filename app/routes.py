@@ -9,7 +9,6 @@ from werkzeug.urls import url_parse
 #Main Page
 @app.route('/')
 def splash():
-    #user = {'username': 'Eric'}
     return render_template('splash.html', title='Welcome to beanZ')
 
 @app.route('/index')
@@ -65,4 +64,7 @@ def register():
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     #can pass additional things into render_templater here
-    return render_template('user.html', user=user)
+    transactions = [
+        {'owner': user, 'body': 'Transaction1 data'},
+        {'owner': user, 'body': 'Transaction2 data'}]
+    return render_template('user.html', user=user, transcations=transactions)
