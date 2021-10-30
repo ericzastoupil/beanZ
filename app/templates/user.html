@@ -2,6 +2,7 @@
 
 {% block content %}
     <h1>User: {{ user.username }}!</h1>
+    {% if user.last_seen %}<p> Last seen on: {{ user.last_seen }}</p>{% endif %}
     <hr>    
     {% for transaction in transactions %}
         {% include '_transaction.html' %}
