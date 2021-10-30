@@ -4,11 +4,7 @@
     <h1>User: {{ user.username }}!</h1>
     <hr>    
     {% for transaction in transactions %}
-        <table>
-            <tr>
-                <td>{{ transaction.owner.username }}: <b>{{ transaction.body }}</b></td>
-            </tr>
-        </table>
+        {% include '_transaction.html' %}
     {% endfor %}
     
 {% endblock %}
