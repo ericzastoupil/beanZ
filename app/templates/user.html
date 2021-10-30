@@ -3,9 +3,12 @@
 {% block content %}
     <h1>User: {{ user.username }}!</h1>
     <hr>    
-    <!-- No use. Just leaving as an example of loop.-->
     {% for transaction in transactions %}
-    <div><p>{{ transaction.owner.username }} says: <b>{{ transaction.body }}</b></p></div>
+        <table>
+            <tr>
+                <td>{{ transaction.owner.username }}: <b>{{ transaction.body }}</b></td>
+            </tr>
+        </table>
     {% endfor %}
     
 {% endblock %}
