@@ -5,6 +5,7 @@ from app.forms import LoginForm, RegistrationForm
 from flask_login import current_user, login_user, logout_user
 from app.models import User
 from werkzeug.urls import url_parse
+from datetime import datetime
 
 #Main Page
 @app.route('/')
@@ -68,3 +69,10 @@ def user(username):
         {'owner': user, 'body': 'Transaction1 data'},
         {'owner': user, 'body': 'Transaction2 data'}]
     return render_template('user.html', user=user, transcations=transactions)
+
+#Adding last seen functionality
+@app.before_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.utcnow
+        db.session.commit()
