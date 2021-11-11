@@ -1,6 +1,15 @@
-{% extends "base.html" %}
 
-{% block content %}
+<!doctype html>
+<html>
+    <head>
+        {% if title %}
+        <title>{{ title }} - beanZ</title>
+        {% else %}
+        <title>Welcome to beanZ</title>
+        {% endif %} 
+    </head>
+    <body>
     <h1>Splash!</h1>
-    
-{% endblock %}
+    <p><a href="{{ url_for('login') }}">Sign In</a></p>
+    </body>
+</html>
