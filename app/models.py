@@ -6,7 +6,8 @@ from flask_login import UserMixin
 #User table definition
 class User(UserMixin, db.Model):
     __tablename__ = 'user'
-    user_id = db.Column(db.Integer, primary_key=True)
+    #user_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
@@ -28,7 +29,8 @@ class User(UserMixin, db.Model):
 class Transaction(db.Model):
     __tablename__ = 'transaction'
     transaction_id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
+    #user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     date_ingested = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     date_transaction = db.Column(db.DateTime, index=True)
     account_id = db.Column(db.Integer, db.ForeignKey('account.account_id'))
