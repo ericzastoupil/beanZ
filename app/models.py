@@ -51,7 +51,7 @@ class Account(db.Model):
         return f"Account {self.account_name}"
 
 #Institution table definition
-class Instutition(db.Model):
+class Institution(db.Model):
     __tablename__ = 'institution'
     institution_id = db.Column(db.Integer, primary_key=True)
     institution_name = db.Column(db.String(64), index=True)
