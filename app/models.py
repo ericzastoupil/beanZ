@@ -12,7 +12,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     transactions = db.relationship('Transaction', backref='user', lazy='dynamic')
-    last_seen = db.Column(db.DateTime, default=datetime.utcnow)
+    last_seen = db.Column(db.DateTime, default=datetime.utcnow())
 
     def __repr__(self):
         return f"<User {self.username}- email: {self.email}"
@@ -31,7 +31,7 @@ class Transaction(db.Model):
     transaction_id = db.Column(db.Integer, primary_key=True)
     #user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    date_ingested = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    date_ingested = db.Column(db.DateTime, index=True, default=datetime.utcnow())
     date_transaction = db.Column(db.DateTime, index=True)
     account_id = db.Column(db.Integer, db.ForeignKey('account.account_id'))
     merchant_id = db.Column(db.Integer, db.ForeignKey('merchant.merchant_id'))
