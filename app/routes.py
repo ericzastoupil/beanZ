@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login.utils import login_required
 from app import app, db
-from app.forms import LoginForm, RegistrationForm
+from app.forms import LoginForm, RegistrationForm, IngestForm
 from flask_login import current_user, login_user, logout_user
 from app.models import User
 from werkzeug.urls import url_parse
@@ -12,11 +12,16 @@ from datetime import datetime
 def splash():
     return render_template('splash.html', title='Welcome to beanZ')
 
-@app.route('/index')
+@app.route('/index', methods=['GET', 'POST'])
 @login_required #when a user that is not logged in attempts access, will be redirected to login page.
 def index():
     user = {'username': 'Eric'}
-    return render_template('index.html', title='beanZ Home')
+    
+    form = IngestForm()
+    if form.validate_on_submit():
+        flash('Ingest the files!')
+
+    return render_template('index.html', title='beanZ Home', form=form)
 
 #Login Page
 @app.route('/login', methods=['GET', 'POST']) #POSTs are for browser submitting form data to the server
