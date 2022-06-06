@@ -10,8 +10,13 @@ from datetime import datetime
 #Main Page
 @app.route('/')
 def splash():
+    #if current user is already logged in, go to index
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+        
     return render_template('splash.html', title='Welcome to beanZ')
 
+#Index Page
 @app.route('/index', methods=['GET', 'POST'])
 @login_required #when a user that is not logged in attempts access, will be redirected to login page.
 def index():
