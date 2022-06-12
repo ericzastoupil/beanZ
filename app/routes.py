@@ -16,6 +16,21 @@ def splash():
         
     return render_template('splash.html', title='Welcome to beanZ')
 
+#Features Page
+@app.route('/features')
+def features():
+    return render_template('features.html', title='beanZ Features')
+
+#Pricing Page
+@app.route('/pricing')
+def pricing():
+    return render_template('pricing.html', title='beanZ Pricing')
+
+#contact Page
+@app.route('/contact')
+def contact():
+    return render_template('contact.html', title='beanZ Contact')
+
 #Index Page
 @app.route('/index', methods=['GET', 'POST'])
 @login_required #when a user that is not logged in attempts access, will be redirected to login page.
