@@ -40,7 +40,7 @@ This application is intended to enable and inform a user's financial decision-ma
 | Apache | Web stuff |
 | Docker | Container stuffs |
 
-## Branch Strategy (not yet implemented)
+## Branch Strategy (all current updates are on Develop)
 - Main- Always maintains a production-ready state
 - Develop- Delivery of most recently developed features, preparing for next release. When stable and ready for release, merges back into Main.
 - Feature- Branches off of, and merges back into, develop branch.
