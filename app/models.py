@@ -28,7 +28,8 @@ class User(UserMixin, db.Model):
 #Transaction table definition
 class Transaction(db.Model):
     __tablename__ = 'transaction'
-    transaction_id = db.Column(db.Integer, primary_key=True)
+    #transaction_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     #user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     date_ingested = db.Column(db.DateTime, index=True, default=datetime.utcnow())
@@ -43,7 +44,8 @@ class Transaction(db.Model):
 #Account table definition
 class Account(db.Model):
     __tablename__ = 'account'
-    account_id = db.Column(db.Integer, primary_key=True)
+    #account_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     account_name = db.Column(db.String(120))
     institution_id = db.Column(db.Integer, db.ForeignKey('institution.institution_id'))
     type_id = db.Column(db.Integer, db.ForeignKey('account_type.account_type_id'))
@@ -55,7 +57,8 @@ class Account(db.Model):
 #Institution table definition
 class Institution(db.Model):
     __tablename__ = 'institution'
-    institution_id = db.Column(db.Integer, primary_key=True)
+    #institution_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     institution_name = db.Column(db.String(64), index=True)
 
     def __repr__(self):
@@ -64,7 +67,8 @@ class Institution(db.Model):
 #AccountType table definition
 class AccountType(db.Model):
     __tablename__ = 'account_type'
-    account_type_id = db.Column(db.Integer, primary_key=True)
+    #account_type_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     account_type = db.Column(db.String(64), index=True)
 
     def __repr__(self):
@@ -73,7 +77,8 @@ class AccountType(db.Model):
 #TransactionTag table definition
 class TransactionTag(db.Model):
     __tablename__ = 'transaction_tag'
-    tag_id = db.Column(db.Integer, primary_key=True)
+    #tag_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     transaction_id = db.Column(db.Integer, db.ForeignKey('transaction.transaction_id'))
     #tag_main_type_id = db.Column(db.Integer, db.ForeignKey('tag_main_type.tag_main_type.id'))
     tag = db.Column(db.String(64))
@@ -84,7 +89,8 @@ class TransactionTag(db.Model):
 #Merchant table definition
 class Merchant(db.Model):
     __tablename__ = 'merchant'
-    merchant_id = db.Column(db.Integer, primary_key=True)
+    #merchant_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     merchant_name = db.Column(db.String(120))
 
     def __repr__(self):
