@@ -59,6 +59,10 @@ class AddAccountForm(FlaskForm):
     desc = StringField("Description", validators=[Optional(), Length(max=160, message='Cannot be more than 160 characters')])
     submit = SubmitField("Add Account")
 
+class ResetPasswordRequestForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Request Password Reset')
+
 '''
 class EditProfileForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
