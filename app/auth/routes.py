@@ -46,7 +46,7 @@ def index():
 '''
 
 #Login Page
-@bp.app.route('/login', methods=['GET', 'POST']) #POSTs are for browser submitting form data to the server
+@bp.route('/login', methods=['GET', 'POST']) #POSTs are for browser submitting form data to the server
 def login():
     #if current user is already logged in, go to index
     if current_user.is_authenticated:
@@ -66,13 +66,13 @@ def login():
     return render_template('auth/login.html', title='Sign In', form=form)
 
 #Logs the user out and redirects back to index
-@bp.app.route('/logout')
+@bp.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('main.index'))
 
 #Register a new user
-@bp.app.route('/register', methods=['GET','POST'])
+@bp.route('/register', methods=['GET','POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
@@ -106,7 +106,7 @@ def before_request():
         db.session.commit()
 '''
 
-@bp.app.route('/reset_password_request', methods=['GET', 'POST'])
+@bp.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
@@ -123,7 +123,7 @@ def reset_password_request():
     return render_template('auth/reset_password_request.html',
                            title='Reset Password', form=form)
 
-@bp.app.route('/reset_password/<token>', methods=['GET', 'POST'])
+@bp.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))

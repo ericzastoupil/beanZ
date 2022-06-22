@@ -3,8 +3,8 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user
 from flask_login.utils import login_required
 from app import db
-from app.forms import LoginForm, RegistrationForm, IngestForm, ResetPasswordRequestForm, ResetPasswordForm
-from app.email import send_password_reset_email
+from app.main.forms import IngestForm #, ResetPasswordRequestForm, ResetPasswordForm, LoginForm, RegistrationForm 
+#from app.email import send_password_reset_email
 from app.models import User
 
 from app.main import bp
@@ -12,7 +12,7 @@ from app.main import bp
 from werkzeug.urls import url_parse
 
 #Main Page
-@bp.app.route('/')
+@bp.route('/')
 def splash():
     #if current user is already logged in, go to index
     if current_user.is_authenticated:
@@ -21,22 +21,22 @@ def splash():
     return render_template('splash.html', title='Welcome to beanZ')
 
 #Features Page
-@bp.app.route('/features')
+@bp.route('/features')
 def features():
     return render_template('features.html', title='beanZ Features')
 
 #Pricing Page
-@bp.app.route('/pricing')
+@bp.route('/pricing')
 def pricing():
     return render_template('pricing.html', title='beanZ Pricing')
 
 #contact Page
-@bp.app.route('/contact')
+@bp.route('/contact')
 def contact():
     return render_template('contact.html', title='beanZ Contact')
 
 #Index Page
-@bp.app.route('/index', methods=['GET', 'POST'])
+@bp.route('/index', methods=['GET', 'POST'])
 @login_required #when a user that is not logged in attempts access, will be redirected to login page.
 def index():
     user = {'username': 'Eric'}
@@ -91,7 +91,7 @@ def register():
 '''
 
 #User profile page
-@bp.app.route('/user/<username>')
+@bp.route('/user/<username>')
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
@@ -102,7 +102,7 @@ def user(username):
     return render_template('user.html', user=user, transcations=transactions)
 
 #Adding last seen functionality
-@bp.app.before_request
+@bp.before_request
 def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
