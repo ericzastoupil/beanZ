@@ -44,11 +44,11 @@
     <div>
       <h3 class="float-md-start mb-0">EZ's Rad App</h3>
       <nav class="nav nav-masthead justify-content-center float-md-end">
-        <a class="nav-link" href="{{ url_for('splash') }}">Home</a>
+        <a class="nav-link" href="{{ url_for('main.splash') }}">Home</a>
         <a class="nav-link" href="#">Features</a>
-        <a class="nav-link active" aria-current="page" href="{{ url_for('pricing') }}">Pricing</a>
+        <a class="nav-link active" aria-current="page" href="{{ url_for('main.pricing') }}">Pricing</a>
         <a class="nav-link " href="#">Contact</a>
-        <a class="nav-link login" href="{{ url_for('login') }}">Login</a>
+        <a class="nav-link login" href="{{ url_for('auth.login') }}">Login</a>
       </nav>
     </div>
   </header>

@@ -1,39 +1,42 @@
+from datetime import datetime
 from flask import render_template, flash, redirect, url_for, request
+from flask_login import current_user, login_user, logout_user
 from flask_login.utils import login_required
-from app import app, db
+from app import db
 from app.forms import LoginForm, RegistrationForm, IngestForm, ResetPasswordRequestForm, ResetPasswordForm
 from app.email import send_password_reset_email
-from flask_login import current_user, login_user, logout_user
 from app.models import User
+
+from app.main import bp
+
 from werkzeug.urls import url_parse
-from datetime import datetime
 
 #Main Page
-@app.route('/')
+@bp.app.route('/')
 def splash():
     #if current user is already logged in, go to index
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('main.index'))
         
     return render_template('splash.html', title='Welcome to beanZ')
 
 #Features Page
-@app.route('/features')
+@bp.app.route('/features')
 def features():
     return render_template('features.html', title='beanZ Features')
 
 #Pricing Page
-@app.route('/pricing')
+@bp.app.route('/pricing')
 def pricing():
     return render_template('pricing.html', title='beanZ Pricing')
 
 #contact Page
-@app.route('/contact')
+@bp.app.route('/contact')
 def contact():
     return render_template('contact.html', title='beanZ Contact')
 
 #Index Page
-@app.route('/index', methods=['GET', 'POST'])
+@bp.app.route('/index', methods=['GET', 'POST'])
 @login_required #when a user that is not logged in attempts access, will be redirected to login page.
 def index():
     user = {'username': 'Eric'}
@@ -44,8 +47,9 @@ def index():
 
     return render_template('index.html', title='beanZ Home', form=form)
 
+'''
 #Login Page
-@app.route('/login', methods=['GET', 'POST']) #POSTs are for browser submitting form data to the server
+@bp.app.route('/login', methods=['GET', 'POST']) #POSTs are for browser submitting form data to the server
 def login():
     #if current user is already logged in, go to index
     if current_user.is_authenticated:
@@ -65,13 +69,13 @@ def login():
     return render_template('login.html', title='Sign In', form=form)
 
 #Logs the user out and redirects back to index
-@app.route('/logout')
+@bp.app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
 #Register a new user
-@app.route('/register', methods=['GET','POST'])
+@bp.app.route('/register', methods=['GET','POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -84,9 +88,10 @@ def register():
         flash('You are now registered')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+'''
 
 #User profile page
-@app.route('/user/<username>')
+@bp.app.route('/user/<username>')
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
@@ -97,13 +102,14 @@ def user(username):
     return render_template('user.html', user=user, transcations=transactions)
 
 #Adding last seen functionality
-@app.before_request
+@bp.app.before_request
 def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
 
-@app.route('/reset_password_request', methods=['GET', 'POST'])
+'''
+@bp.app.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -120,7 +126,7 @@ def reset_password_request():
     return render_template('reset_password_request.html',
                            title='Reset Password', form=form)
 
-@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+@bp.app.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -134,3 +140,4 @@ def reset_password(token):
         flash('Your password has been reset.')
         return redirect(url_for('login'))
     return render_template('reset_password.html', form=form)
+'''
