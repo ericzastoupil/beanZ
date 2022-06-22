@@ -6,3 +6,4 @@ notes.md
 beanZ_env
 .flaskenv
 app.db
+main.py
