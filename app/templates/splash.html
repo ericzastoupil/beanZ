@@ -37,36 +37,34 @@
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='stylesheets/splash.css') }}" />
 
   </head>
+
   <body class="d-flex h-100 text-center text-white bg-dark">
     
-<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-  <header class="mb-auto">
-    <div>
-      <h3 class="float-md-start mb-0">EZ's Rad App</h3>
-      <nav class="nav nav-masthead justify-content-center float-md-end">
-        <a class="nav-link active" aria-current="page" href="{{ url_for('main.splash') }}">Home</a>
-        <a class="nav-link" href="#">Features</a>
-        <a class="nav-link" href="{{ url_for('main.pricing') }}">Pricing</a>
-        <a class="nav-link" href="#">Contact</a>
-        <a class="nav-link login" href="{{ url_for('auth.login') }}">Login</a>
-      </nav>
-    </div>
-  </header>
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <header class="mb-auto">
+        <div>
+          <h3 class="float-md-start mb-0">EZ's Rad App</h3>
+          <nav class="nav nav-masthead justify-content-center float-md-end">
+            <a class="nav-link active" aria-current="page" href="{{ url_for('main.splash') }}">Home</a>
+            <a class="nav-link" href="{{ url_for('main.features') }}">Features</a>
+            <a class="nav-link" href="{{ url_for('main.pricing') }}">Pricing</a>
+            <a class="nav-link" href="{{ url_for('main.contact') }}">Contact</a>
+            <a class="nav-link login" href="{{ url_for('auth.login') }}">Login</a>
+          </nav>
+        </div>
+      </header>
 
-  <main class="px-3">
-    <h1>beanZ Personal Finance Tool</h1>
-    <p class="lead">The baddest personal finance tool there ever was</p>
-    <p class="lead">
-      <a href="{{ url_for('auth.login') }}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Enter</a>
-    </p>
-  </main>
+    <main class="px-3">
+      <h1>beanZ Personal Finance Tool</h1>
+      <p class="lead">The baddest personal finance tool there ever was</p>
+      <p class="lead">
+        <a href="{{ url_for('auth.login') }}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Enter</a>
+      </p>
+    </main>
 
-  <footer class="mt-auto text-white-50">
-    <p>This app developed by <a href="https://github.com/ericzastoupil" class="text-white">Eric Zastoupil</a>.</p>
-  </footer>
-</div>
-
-
-    
-  </body>
+    <footer class="mt-auto text-white-50">
+      <p>This app developed by <a href="https://github.com/ericzastoupil" class="text-white">Eric Zastoupil</a>.</p>
+    </footer>
+  </div>
+</body>
 </html>
