@@ -16,6 +16,7 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     transactions = db.relationship('Transaction', backref='user', lazy='dynamic')
     last_seen = db.Column(db.DateTime, default=datetime.utcnow())
+    desc = db.Column(db.String(240))
 
     def __repr__(self):
         return f"<User {self.username}- email: {self.email}"
@@ -50,7 +51,7 @@ class Transaction(db.Model):
     date_transaction = db.Column(db.DateTime, index=True)
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'))
     merchant_id = db.Column(db.Integer, db.ForeignKey('merchant.id'))
-    desc = db.Column(db.String(120))
+    desc = db.Column(db.String(240))
 
     def __repr__(self):
         return f"<Transaction {self.date_transaction}- {self.desc}>"
@@ -59,10 +60,12 @@ class Transaction(db.Model):
 class Account(db.Model):
     __tablename__ = 'account'
     id = db.Column(db.Integer, primary_key=True)
-    account_name = db.Column(db.String(120))
-    institution_id = db.Column(db.Integer, db.ForeignKey('institution.id'))
+    account_owner = db.Column(db.Integer, db.ForeignKey('user.id'))
     type_id = db.Column(db.Integer, db.ForeignKey('account_type.id'))
+    institution_id = db.Column(db.Integer, db.ForeignKey('institution.id'))
+    account_name = db.Column(db.String(120))
     transactions = db.relationship('Transaction', backref='account', lazy='dynamic') #one account can have many transactions.
+    desc = db.Column(db.String(240))
 
     def __repr__(self):
         return f"Account {self.account_name}"
@@ -72,6 +75,8 @@ class Institution(db.Model):
     __tablename__ = 'institution'
     id = db.Column(db.Integer, primary_key=True)
     institution_name = db.Column(db.String(64), index=True)
+    desc = db.Column(db.String(240))
+    
 
     def __repr__(self):
         return f"Institution {self.institution_name}"
@@ -81,6 +86,7 @@ class AccountType(db.Model):
     __tablename__ = 'account_type'
     id = db.Column(db.Integer, primary_key=True)
     account_type = db.Column(db.String(64), index=True)
+    desc = db.Column(db.String(240))
 
     def __repr__(self):
         return f"AccountType {self.account_type}"
@@ -91,6 +97,7 @@ class TransactionTag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     transaction_id = db.Column(db.Integer, db.ForeignKey('transaction.id'))
     tag = db.Column(db.String(64))
+    desc = db.Column(db.String(240))
 
     def __repr__(self):
         return f"TransactionTag {self.tag}"
@@ -100,6 +107,7 @@ class Merchant(db.Model):
     __tablename__ = 'merchant'
     id = db.Column(db.Integer, primary_key=True)
     merchant_name = db.Column(db.String(120))
+    desc = db.Column(db.String(240))
 
     def __repr__(self):
         return f"Merchant {self.merchant_name}"
