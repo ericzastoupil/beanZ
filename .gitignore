@@ -1,5 +1,4 @@
-ledger/
-ingest_files/
+
 __pycache__/
 *.drawio
 notes.md
@@ -7,5 +6,4 @@ beanZ_env
 .flaskenv
 app.db
 main.py
-
 logs/
