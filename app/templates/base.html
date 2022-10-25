@@ -8,7 +8,7 @@
         {% endif %} 
     </head>
     <body>
-        <!-- Navigation bar -->
+        <!-- START Navigation bar -->
         <div>
             beanZ: 
             <a href={{ url_for('main.index') }}>Home</a>
@@ -20,6 +20,8 @@
             {% endif %}
         </div>
         <hr>
+        <!-- END Navigatio Bar-->
+
         <!-- Flash messages -->
         {% with messages = get_flashed_messages() %}
             {% if messages %}
@@ -30,13 +32,16 @@
             </ul>
             {% endif %}
         {% endwith %}
+        <!-- END Flash messages -->
         
         <!-- START Main body -->
         {% block content %}{% endblock %}
         <!-- END Main body -->
 
+        <!-- START Footer -->
         <footer class="mt-auto text-white-50">
             <p>This app developed by <a href="https://github.com/ericzastoupil" class="text-white">Eric Zastoupil</a>.</p>
         </footer>
+        <!-- END Footer -->
     </body>
 </html>
