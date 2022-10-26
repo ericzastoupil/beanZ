@@ -23,10 +23,10 @@ class UserModelCase(unittest.TestCase):
         self.app_context.pop()
 
     def test_password_hashing(self):
-        u = User(username='susan')
-        u.set_password('cat')
-        self.assertFalse(u.check_password('dog'))
-        self.assertTrue(u.check_password('cat'))
+        u = User(username='userguy')
+        u.set_password('r34lLyg00dP@$$w0rd')
+        self.assertFalse(u.check_password('password123'))
+        self.assertTrue(u.check_password('r34lLyg00dP@$$w0rd'))
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
