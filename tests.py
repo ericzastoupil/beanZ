@@ -23,10 +23,28 @@ class UserModelCase(unittest.TestCase):
         self.app_context.pop()
 
     def test_password_hashing(self):
-        u = User(username='userguy')
-        u.set_password('r34lLyg00dP@$$w0rd')
-        self.assertFalse(u.check_password('password123'))
-        self.assertTrue(u.check_password('r34lLyg00dP@$$w0rd'))
+        u1 = User(username='user1')
+        u1.set_password('r34lLyg00dP@$$w0rd')
+        self.assertFalse(u1.check_password('password123'))
+        self.assertTrue(u1.check_password('r34lLyg00dP@$$w0rd'))
 
+    '''
+    def test_created_on(self):
+        creation = datetime.utcnow()
+        u2 = User(username='user2')
+        self.assertTrue(creation < u2.created_on)
+        self.assertTrue(datetime.utcnow() > u2.created_on)
+
+    def test_updated_on(self):
+        u3 = User(username='user3')
+        u3.set_password('password')
+
+        before = u3.updated_on
+        u3.set_password('newpassword')
+        after = u3.updated_on
+
+        self.assertTrue(before > after)
+    '''
+    
 if __name__ == '__main__':
     unittest.main(verbosity=2)
