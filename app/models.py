@@ -19,6 +19,8 @@ class User(UserMixin, db.Model):
     transactions = db.relationship('Transaction', backref='user', lazy='dynamic')
     last_seen = db.Column(db.DateTime, default=datetime.utcnow())
     desc = db.Column(db.String(240))
+    #created_on = db.Column(db.DateTime, default=datetime.utcnow())
+    #updated_on = db.Column(db.DateTime, default=datetime.utcnow(), onupdate=datetime.utcnow())
 
     def __repr__(self):
         return f"<User {self.username}- email: {self.email}"
