@@ -6,3 +6,4 @@ beanZ_env
 .flaskenv
 app.db
 logs/
+admin/
