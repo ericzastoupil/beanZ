@@ -4,23 +4,23 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from time import time
 import jwt
-from app import db, login
+#from app import db, login
 from flask import current_app
 
 #User table definition
 class User(UserMixin, db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), index=True, unique=True)
+    username = db.Column(db.String(64), index=True, unique=True, nullable=False)
     #first_name = db.Column(db.String(64), index=True, unique=True)
     #last_name = db.Column(db.String(64), index=True, unique=True)
-    email = db.Column(db.String(120), index=True, unique=True)
-    password_hash = db.Column(db.String(128))
-    transactions = db.relationship('Transaction', backref='user', lazy='dynamic')
+    email = db.Column(db.String(120), index=True, unique=True, nullable=False)
+    password_hash = db.Column(db.String(128), nullable=False)
+    transactions = db.relationship('Transaction', backref='purchaser', lazy='dynamic')
     last_seen = db.Column(db.DateTime, default=datetime.utcnow())
     desc = db.Column(db.String(240))
-    #created_on = db.Column(db.DateTime, default=datetime.utcnow())
-    #updated_on = db.Column(db.DateTime, default=datetime.utcnow(), onupdate=datetime.utcnow())
+    created_on = db.Column(db.DateTime, default=datetime.utcnow())
+    updated_on = db.Column(db.DateTime, default=datetime.utcnow(), onupdate=datetime.utcnow())
 
     def __repr__(self):
         return f"<User {self.username}- email: {self.email}"
