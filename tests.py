@@ -27,12 +27,15 @@ class UserModelCase(unittest.TestCase):
         self.assertFalse(u1.check_password('password123'))
         self.assertTrue(u1.check_password('r34lLyg00dP@$$w0rd'))
 
+    
     '''
     def test_created_on(self):
         creation = datetime.utcnow()
+        print("\n[+] Creation: ", creation)
         u2 = User(username='user2')
-        self.assertTrue(creation < u2.created_on)
-        self.assertTrue(datetime.utcnow() > u2.created_on)
+        print("\n[+] u2.created_on: ", u2.created_on.cast(Date))
+        self.assertTrue(creation < u2.created_on.cast(Date))
+        self.assertTrue(datetime.utcnow() > datetime(u2.created_on))
 
     def test_updated_on(self):
         u3 = User(username='user3')
