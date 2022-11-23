@@ -1,7 +1,8 @@
 import os, argparse
+import datetime
 from config import Config
 from app import create_app, db
-import app.models
+from app.models import Transaction
 
 def setup_parser():
     parser = argparse.ArgumentParser(description='Ingest data as a starting point for beanZ', 
@@ -9,6 +10,7 @@ def setup_parser():
     parser.add_argument('-v','--verbose', action='store_true', help='increase verbosity')
     parser.add_argument('-d', '--dir', type=str, nargs='+', help='directory from which to read all files (default is ingest_files/)')
     parser.add_argument('-f', '--file', type=str, nargs='+', help='file(s) to ingest')
+    parser.add_argument('-x', '--clear', action='store_true', help='clears all stored transactions')
 
     return parser
 
@@ -19,6 +21,9 @@ class Ingester():
         self.setUp()
         if self.args.verbose: print(f'[+] Ingester setting up...')
 
+    def __del__(self):
+        if self.args.verbose: print(f'[+] Ingester shutting down...')
+
     def setUp(self):
         self.app = create_app(Config)
         self.app_context = self.app.app_context()
@@ -28,7 +33,12 @@ class Ingester():
     def tearDown(self):
         db.session.remove()
         self.app_context.pop()
-        if self.args.verbose: print(f'[+] Ingester shutting down...')
+
+    def clear_transactions(self):
+        if self.args.verbose: print(f'[!] Clearing all transactions...')
+    
+        db.session.query(Transaction).delete()
+        db.session.commit()
 
     def collect_filenames(self):
         path = 'ingest_files/'
@@ -61,7 +71,19 @@ class Ingester():
             for line in lines:
                 count += 1
                 if args.verbose: print(f"File {file}: Line {count}: {line.strip()}")
+                self.record(line)
             text.close()
+
+    def record(self, line):
+        pass
+        '''
+        trans = line.split(',')
+        t = Transaction(user_id=1, 
+                        date_transaction=datetime.datetime.strptime(trans[2], '%m/%d/%Y'), 
+                        account_id=7,
+                        merchant_id=7)
+        db.session.add(t)
+        '''
 
 if __name__ == '__main__':
     
@@ -70,5 +92,16 @@ if __name__ == '__main__':
 
     ingester = Ingester(args)
 
-    ingester.ingest_files()
+    if args.clear:
+        ingester.clear_transactions()
+    else:
+        ingester.ingest_files()
+    '''
+    t = Transaction(user_id=1, 
+                    date_transaction=datetime.datetime.strptime('12/31/2021', '%m/%d/%Y'), 
+                    account_id=7,
+                    merchant_id=7)
+    db.session.add(t)
+    db.session.commit()
+    '''
     ingester.tearDown()
