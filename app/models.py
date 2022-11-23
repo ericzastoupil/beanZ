@@ -51,6 +51,7 @@ class Transaction(db.Model):
     __tablename__ = 'transaction'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    amount = db.Column(db.Float)
     date_ingested = db.Column(db.DateTime, index=True, default=datetime.utcnow())
     date_transaction = db.Column(db.DateTime, index=True)
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'))
