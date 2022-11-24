@@ -11,6 +11,7 @@ def setup_parser():
     parser.add_argument('-d', '--dir', type=str, nargs='+', help='directory from which to read all files (default is ingest_files/)')
     parser.add_argument('-f', '--file', type=str, nargs='+', help='file(s) to ingest')
     parser.add_argument('-x', '--clear', action='store_true', help='clears all stored transactions')
+    parser.add_argument('-t', '--trans', action='store_true', help='add a single, test transaction')
 
     return parser
 
@@ -38,6 +39,30 @@ class Ingester():
         if self.args.verbose: print(f'[!] Clearing all transactions...')
     
         db.session.query(Transaction).delete()
+        db.session.commit()
+
+    def single_trans(self):
+        user_id=1
+        amount=1.23
+        date_trans=['12/31/2021', '%m/%d/%Y']
+        account_id=1
+        merchant_id=1
+        
+        if self.args.verbose: 
+            print(f'[+] Adding single transaction')
+            print(f'    user_id: {user_id}')
+            print(f'    amount: {amount}')
+            print(f'    date_trans: {date_trans[0]}')
+            print(f'    account_id: {account_id}')
+            print(f'    merchant_id: {merchant_id}')
+
+        t = Transaction(user_id=user_id,
+                    amount=amount,
+                    date_transaction=datetime.datetime.strptime(date_trans[0], date_trans[1]), 
+                    account_id=account_id,
+                    merchant_id=merchant_id)
+        
+        db.session.add(t)
         db.session.commit()
 
     def collect_filenames(self):
@@ -75,15 +100,14 @@ class Ingester():
             text.close()
 
     def record(self, line):
-        pass
-        '''
         trans = line.split(',')
         t = Transaction(user_id=1, 
+                        amount=float(trans[6]),
                         date_transaction=datetime.datetime.strptime(trans[2], '%m/%d/%Y'), 
                         account_id=7,
                         merchant_id=7)
         db.session.add(t)
-        '''
+        db.session.commit()
 
 if __name__ == '__main__':
     
@@ -94,14 +118,9 @@ if __name__ == '__main__':
 
     if args.clear:
         ingester.clear_transactions()
+    elif args.trans:
+        ingester.single_trans()
     else:
         ingester.ingest_files()
-    '''
-    t = Transaction(user_id=1, 
-                    date_transaction=datetime.datetime.strptime('12/31/2021', '%m/%d/%Y'), 
-                    account_id=7,
-                    merchant_id=7)
-    db.session.add(t)
-    db.session.commit()
-    '''
+    
     ingester.tearDown()
