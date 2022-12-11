@@ -2,22 +2,27 @@ import os, argparse
 import datetime
 from config import Config
 from app import create_app, db
-from app.models import Transaction
+from app.models import Transaction, Account, Merchant
 
 def setup_parser():
-    parser = argparse.ArgumentParser(description='Ingest data as a starting point for beanZ', 
-                                    epilog="Not all combinations and permutations have been fully tested. Don't be picky")
+    parser = argparse.ArgumentParser(prog='Ingester',
+                                    description='Ingest data as a starting point for beanZ', 
+                                    epilog="Not all combinations and permutations have been fully tested. Don't be picky.")
     parser.add_argument('-v','--verbose', action='store_true', help='increase verbosity')
     parser.add_argument('-d', '--dir', type=str, nargs='+', help='directory from which to read all files (default is ingest_files/)')
     parser.add_argument('-f', '--file', type=str, nargs='+', help='file(s) to ingest')
     parser.add_argument('-x', '--clear', action='store_true', help='clears all stored transactions')
-    parser.add_argument('-t', '--trans', action='store_true', help='add a single, test transaction')
+    parser.add_argument('-t', '--trans', action='store_true', help='add a single user')
+    parser.add_argument('-u', '--user', type=str, nargs='+', help='add a single user')
+    parser.add_argument('-a', '--account', type=str, nargs='+', help='add a single account')
+    parser.add_argument('-m', '--merchant', type=str, nargs='+', help='add a single merchant')
 
     return parser
 
 class Ingester():
     def __init__(self, args):
         self.args = args
+        self.path = 'ingest_files/'
         self.files = self.collect_filenames()
         self.setUp()
         if self.args.verbose: print(f'[+] Ingester setting up...')
@@ -49,7 +54,7 @@ class Ingester():
         merchant_id=1
         
         if self.args.verbose: 
-            print(f'[+] Adding single transaction')
+            print(f'[+] Adding single transaction...')
             print(f'    user_id: {user_id}')
             print(f'    amount: {amount}')
             print(f'    date_trans: {date_trans[0]}')
@@ -65,8 +70,47 @@ class Ingester():
         db.session.add(t)
         db.session.commit()
 
+    def single_account(self):
+        account_owner=1
+        type_id=1
+        institution_id=1
+        account_name=self.args.account[0] #maybe Institution + Type? ie Chase Checking
+        desc=''
+        
+        if self.args.verbose: 
+            print(f'[+] Adding single account...')
+            print(f'    account_owner: {account_owner}')
+            print(f'    type_id: {type_id}')
+            print(f'    institution_id: {institution_id}')
+            print(f'    account_name: {account_name}')
+            print(f'    desc: {desc}')
+
+        a = Account(account_owner=account_owner,
+                    type_id=type_id,
+                    institution_id=institution_id, 
+                    account_name=account_name,
+                    desc=desc)
+        
+        db.session.add(a)
+        db.session.commit()
+
+    def single_merchant(self):
+        merchant_name=self.args.merchant[0]
+        desc=self.args.merchant[1]
+        
+        if self.args.verbose: 
+            print(f'[+] Adding single merchant...')
+            print(f'    merchant_name: {merchant_name}')
+            print(f'    desc: {desc}')
+
+        m = Merchant(merchant_name=merchant_name,
+                    desc=desc)
+        
+        db.session.add(m)
+        db.session.commit()
+
     def collect_filenames(self):
-        path = 'ingest_files/'
+        path = self.path
         files = []
 
         #if no specific directories or files given, take files from default directory
